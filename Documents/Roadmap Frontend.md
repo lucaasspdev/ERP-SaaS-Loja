@@ -48,7 +48,7 @@ Inicialmente:
 
 ---
 
-# Organização das pastas
+# Organização das pastas (Visualizar em bloco de notas)
 frontend/
 │
 ├── index.html
