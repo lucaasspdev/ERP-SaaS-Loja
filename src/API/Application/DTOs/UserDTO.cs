@@ -7,7 +7,7 @@ namespace src.Application.DTOs
 {
     public class UserDTO
     {
-        public string email { get; set; }
-        public string senha { get; set; }
+        public required string Email { get; set; }
+        public required string Senha { get; set; }
     }
 }

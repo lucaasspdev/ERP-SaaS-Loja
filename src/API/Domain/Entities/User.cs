@@ -7,7 +7,7 @@ namespace src.Domain.Entities
 {
     public class User
     {
-        public string email { get; set; }
-        public string senhaCriptografada { get; set; }
+        public required string Email { get; set; }
+        public required string SenhaCriptografada { get; set; }
     }
 }
