@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using src.Domain.Entities;
 using src.Application.DTOs;
 using Microsoft.AspNetCore.Identity;
+using API.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
@@ -15,22 +17,47 @@ namespace API.Controllers
     {
         public static User user = new() { Email = "", SenhaCriptografada = "" };
 
-        [HttpPost("register")]
-        public ActionResult<User> Register(UserDTO request)
+        private readonly AppDbContext _context;
+
+        public AuthController(AppDbContext context)
         {
+            _context = context;
+        }
+
+        [HttpPost("register")]
+        public async Task<ActionResult<User>> Register(UserDTO request)
+        {
+            // Verifica se já existe no banco
+            var existingUser = await _context.User
+                .FirstOrDefaultAsync(u => u.Email == request.Email);
+
+            if (existingUser != null)
+                return BadRequest("Usuário já cadastrado com o id: " + existingUser.Id);
+
+            var user = new User();
+
             var senhaCriptografada = new PasswordHasher<User>()
                 .HashPassword(user, request.Senha);
-
 
             user.Email = request.Email;
             user.SenhaCriptografada = senhaCriptografada;
 
-            return Ok(user);
+            _context.User.Add(user);
+
+            await _context.SaveChangesAsync();
+
+            return StatusCode(201, new { user.Id, user.Email, message = "Usuário registrado com sucesso" });
         }
 
         [HttpPost("login")]
-        public ActionResult<string> Login(UserDTO request)
+        public async Task<ActionResult<string>> Login(UserDTO request)
         {
+
+            var user = await _context.User.FirstOrDefaultAsync(u => u.Email == request.Email);
+
+            if (user == null)
+                return BadRequest("Usuário não encontrado");
+
             var result = new PasswordHasher<User>()
                 .VerifyHashedPassword(user, user.SenhaCriptografada, request.Senha);
 
@@ -39,5 +66,5 @@ namespace API.Controllers
 
             return Ok("Login bem-sucedido");
         }
-    }   
+    }
 }
