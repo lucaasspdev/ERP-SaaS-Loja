@@ -1,5 +1,4 @@
 C:\Users\PC-Server\Documents\Workspace\Dev\ERP-SaaS-Loja\src\API\bin\Debug\net9.0\Properties\appsettings.Development.json
-C:\Users\PC-Server\Documents\Workspace\Dev\ERP-SaaS-Loja\src\API\bin\Debug\net9.0\Properties\appsettings.json
 C:\Users\PC-Server\Documents\Workspace\Dev\ERP-SaaS-Loja\src\API\bin\Debug\net9.0\ERPLoja.staticwebassets.endpoints.json
 C:\Users\PC-Server\Documents\Workspace\Dev\ERP-SaaS-Loja\src\API\bin\Debug\net9.0\ERPLoja.exe
 C:\Users\PC-Server\Documents\Workspace\Dev\ERP-SaaS-Loja\src\API\bin\Debug\net9.0\ERPLoja.deps.json
@@ -44,3 +43,4 @@ C:\Users\PC-Server\Documents\Workspace\Dev\ERP-SaaS-Loja\src\API\obj\Debug\net9.
 C:\Users\PC-Server\Documents\Workspace\Dev\ERP-SaaS-Loja\src\API\obj\Debug\net9.0\ERPLoja.pdb
 C:\Users\PC-Server\Documents\Workspace\Dev\ERP-SaaS-Loja\src\API\obj\Debug\net9.0\ERPLoja.genruntimeconfig.cache
 C:\Users\PC-Server\Documents\Workspace\Dev\ERP-SaaS-Loja\src\API\obj\Debug\net9.0\ref\ERPLoja.dll
+C:\Users\PC-Server\Documents\Workspace\Dev\ERP-SaaS-Loja\src\API\bin\Debug\net9.0\appsettings.json

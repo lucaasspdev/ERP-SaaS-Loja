@@ -6,6 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using src.Domain.Entities;
 using src.Application.DTOs;
 using Microsoft.AspNetCore.Identity;
+using API.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using API.Application.DTOs;
+using API.Application.Services;
 
 namespace API.Controllers
 {
@@ -13,31 +18,73 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        public static User user = new() { Email = "", SenhaCriptografada = "" };
+        private readonly UserService _userService;
+        public AuthController(UserService userService)
+        {
+            _userService = userService;
+        }
 
         [HttpPost("register")]
-        public ActionResult<User> Register(UserDTO request)
+        public async Task<IActionResult> Register(UserDTO request)
         {
-            var senhaCriptografada = new PasswordHasher<User>()
-                .HashPassword(user, request.Senha);
+            try
+            {
+                var user = await _userService.RegisterAsync(request);
+                return StatusCode(201, new
+                {
+                    user.Id,
+                    user.Email,
+                    message = "Usuário registrado com sucesso"
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
-
-            user.Email = request.Email;
-            user.SenhaCriptografada = senhaCriptografada;
-
-            return Ok(user);
+        [HttpPost("change-password")]
+        public async Task<IActionResult> ChangePassword(ChangePasswordDTO request)
+        {
+            try
+            {
+                await _userService.AlterarSenhaAsync(request);
+                return Ok("Senha alterada com sucesso");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost("login")]
-        public ActionResult<string> Login(UserDTO request)
+        public async Task<IActionResult> Login(UserDTO request)
         {
-            var result = new PasswordHasher<User>()
-                .VerifyHashedPassword(user, user.SenhaCriptografada, request.Senha);
-
-            if (result == PasswordVerificationResult.Failed || request.Email != user.Email)
-                return BadRequest("Senha ou usuário incorretos");
-
-            return Ok("Login bem-sucedido");
+            try
+            {
+                var user = await _userService.LoginAsync(request);
+                return StatusCode(200, new
+                {
+                    user.Id,
+                    user.Email,
+                    message = "Login bem-sucedido"
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
-    }   
+
+        [HttpPost("logout")]
+        [Authorize]
+        public async Task<ActionResult<string>> Logout()
+        {
+            return Ok("Logout bem-sucedido");
+        }
+
+
+
+
+    }
 }
