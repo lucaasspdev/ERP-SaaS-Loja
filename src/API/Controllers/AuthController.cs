@@ -19,9 +19,11 @@ namespace API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly UserService _userService;
-        public AuthController(UserService userService)
+        private readonly TokenService _tokenService;
+        public AuthController(UserService userService, TokenService tokenService)
         {
             _userService = userService;
+            _tokenService = tokenService;
         }
 
         [HttpPost("register")]
@@ -63,8 +65,12 @@ namespace API.Controllers
             try
             {
                 var user = await _userService.LoginAsync(request);
+
+                var token = _tokenService.GenerateToken(user);
+
                 return StatusCode(200, new
                 {
+                    token,
                     user.Id,
                     user.Email,
                     message = "Login bem-sucedido"
