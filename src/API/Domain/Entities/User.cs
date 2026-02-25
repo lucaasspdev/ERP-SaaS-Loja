@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 
 namespace src.Domain.Entities
 {
-    public class User
+public class User
 {
     public int Id { get; private set; }
     public string Email { get; private set; }
     public string SenhaCriptografada { get; private set; }
+
+    private User() { }
 
     public User(string email, string senhaCriptografada)
     {
@@ -19,6 +21,9 @@ namespace src.Domain.Entities
 
     public void AlterarSenha(string novaSenhaCriptografada)
     {
+        if (string.IsNullOrWhiteSpace(novaSenhaCriptografada))
+            throw new ArgumentException("Senha inválida");
+
         SenhaCriptografada = novaSenhaCriptografada;
     }
 }

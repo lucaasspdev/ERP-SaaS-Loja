@@ -10,10 +10,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("35456738-0f8e-412c-8d50-94c34c1f8a26")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("ERPLoja")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+daae6ed9156b94d364a07cfbea799bdb0977bd6d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+712bde32f9e3c6bdbcce5d376716ba707cbdb6a2")]
 [assembly: System.Reflection.AssemblyProductAttribute("ERPLoja")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ERPLoja")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
