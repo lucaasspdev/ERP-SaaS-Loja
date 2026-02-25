@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Ics5CX3x5mQ=",
+  "dgSpecHash": "i8LGnRYatLo=",
   "success": true,
-  "projectFilePath": "C:\\Users\\PC-Server\\Documents\\Workspace\\Dev\\ERP-SaaS-Loja\\src\\API\\ERPLoja.csproj",
+  "projectFilePath": "C:\\Users\\PC-Server\\Documents\\Workspace\\Dev\\ERP-SaaS-Loja\\MeuERP\\backend\\src\\API\\ERPLoja.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\PC-Server\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\PC-Server\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.6\\microsoft.aspnetcore.openapi.9.0.6.nupkg.sha512",
