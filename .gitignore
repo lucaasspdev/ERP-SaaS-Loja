@@ -1,0 +1,15 @@
+# Build
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Logs
+*.log
+
+# Node (caso tenha frontend)
+node_modules/
+dist/
