@@ -19,6 +19,14 @@ public class User
         SenhaCriptografada = senhaCriptografada;
     }
 
+    public void AlterarEmail(string novoEmail)
+    {
+        if (string.IsNullOrWhiteSpace(novoEmail))
+            throw new ArgumentException("Email inválido");
+
+        Email = novoEmail;
+    }
+
     public void AlterarSenha(string novaSenhaCriptografada)
     {
         if (string.IsNullOrWhiteSpace(novaSenhaCriptografada))
