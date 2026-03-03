@@ -13,7 +13,7 @@ using API.Application.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+#region Services
 builder.Services.AddHttpClient<ILocalidadeService, IbgeService>();
 builder.Services.AddMemoryCache();
 
@@ -27,6 +27,8 @@ builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<ClienteService>();
+builder.Services.AddHostedService<MigrationHostedService>();
+#endregion
 
 #region Configuração do JWT
 var key = builder.Configuration["Jwt:Key"];
@@ -50,7 +52,6 @@ builder.Services.AddAuthentication(options =>
 #endregion
 
 builder.Services.AddAuthorization();
-
 
 #region Configuração do Swagger para suportar autenticação JWT
 builder.Services.AddSwaggerGen(options =>
@@ -88,24 +89,18 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddSwaggerGen();
 
-
 var app = builder.Build();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    
-}
 
-app.UseHttpsRedirection();
+app.UseSwagger();
+app.UseSwaggerUI();
 
+// app.UseHttpsRedirection();
 app.UseAuthorization();
-
 app.MapControllers();
 app.MapGet("/", () => Results.Redirect("/swagger"));
 app.Run();
