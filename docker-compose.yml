@@ -1,0 +1,20 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - "5000:8080"
+    environment:
+      - ConnectionStrings__DefaultConnection=server=db;database=ERPLoja;user=root;password=dev@lucas;
+      - Jwt__Key=7fK9vQ2xL8mNpR4tY6uZ1wE3rT5yU0iOpS9dFaG2hJkL3cVbX8nMqR7sT1uW4zY6aB9dEfH2jKlP5qRsT8vWxZ1yU3iOpL0
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: dev@lucas
+      MYSQL_DATABASE: ERPLoja
+    ports:
+      - "3306:3306"
